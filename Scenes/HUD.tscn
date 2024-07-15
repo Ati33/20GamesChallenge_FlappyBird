@@ -1,0 +1,25 @@
+[gd_scene format=3 uid="uid://cbv3g2s0rbpd6"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="ScoreLabel" type="Label" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 88.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="."]
+offset_left = 626.0
+offset_top = 61.0
+offset_right = 666.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 48
+text = "0
+"

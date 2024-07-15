@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://ca8gy1krojm6d"]
+
+[ext_resource type="Texture2D" uid="uid://bjj43pvroxnhq" path="res://Assets/trappng.png" id="1_itnc4"]
+[ext_resource type="Script" path="res://Scripts/floor.gd" id="1_rralc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m5aue"]
+size = Vector2(1324.5, 117)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_rralc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-815, 55)
+rotation = 1.5708
+scale = Vector2(4, 4)
+texture = ExtResource("1_itnc4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-37.25, 53.5)
+shape = SubResource("RectangleShape2D_m5aue")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

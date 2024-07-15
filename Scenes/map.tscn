@@ -1,0 +1,87 @@
+[gd_scene load_steps=10 format=3 uid="uid://dpcn88yo1a5ra"]
+
+[ext_resource type="Script" path="res://Scripts/map.gd" id="1_vp2pr"]
+[ext_resource type="PackedScene" uid="uid://dci1t3gyhqy8u" path="res://Scenes/pipe.tscn" id="2_b8cv2"]
+[ext_resource type="Texture2D" uid="uid://lv2bua07abxt" path="res://Assets/arrow.png" id="2_qsua5"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="2_yluaj"]
+[ext_resource type="Texture2D" uid="uid://dcpinc34ggy4q" path="res://Assets/flappypng.png" id="3_uqoab"]
+[ext_resource type="PackedScene" uid="uid://ca8gy1krojm6d" path="res://Scenes/floor.tscn" id="5_uy2l8"]
+[ext_resource type="PackedScene" uid="uid://b4mqpfjxo8p7c" path="res://Scenes/game_over.tscn" id="7_lqi1q"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obw8w"]
+radius = 7.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uendj"]
+size = Vector2(153, 830)
+
+[node name="Map" type="Node2D"]
+position = Vector2(0, 13)
+script = ExtResource("1_vp2pr")
+pipe_scene = ExtResource("2_b8cv2")
+
+[node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(100, 160)
+script = ExtResource("2_yluaj")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player"]
+position = Vector2(-1, -9)
+texture = ExtResource("3_uqoab")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player"]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_obw8w")
+
+[node name="Floor" parent="." instance=ExtResource("5_uy2l8")]
+position = Vector2(193, 327)
+
+[node name="Ceiling" parent="." instance=ExtResource("5_uy2l8")]
+position = Vector2(210, 0)
+rotation = 3.14159
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(320, 162)
+zoom = Vector2(2, 2)
+
+[node name="arrow" type="Sprite2D" parent="."]
+position = Vector2(8, 160)
+texture = ExtResource("2_qsua5")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="WallResetArea" type="Area2D" parent="."]
+priority = 1
+
+[node name="WallResetCollision" type="CollisionShape2D" parent="WallResetArea"]
+position = Vector2(-114, 163)
+shape = SubResource("RectangleShape2D_uendj")
+
+[node name="GameOver" parent="." instance=ExtResource("7_lqi1q")]
+
+[node name="HUD" type="CanvasLayer" parent="."]
+
+[node name="ScoreLabel" type="Label" parent="HUD"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 88.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 48
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HighScoreLabel" type="Label" parent="HUD"]
+offset_left = 626.0
+offset_top = 61.0
+offset_right = 666.0
+offset_bottom = 128.0
+theme_override_font_sizes/font_size = 48
+text = "0
+"
+metadata/_edit_use_anchors_ = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="restart" from="GameOver" to="." method="_on_game_over_restart"]

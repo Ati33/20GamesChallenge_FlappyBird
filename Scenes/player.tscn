@@ -1,0 +1,32 @@
+[gd_scene load_steps=5 format=3 uid="uid://dscn40gybejk8"]
+
+[ext_resource type="Texture2D" uid="uid://dcpinc34ggy4q" path="res://Assets/flappypng.png" id="1_5e0s5"]
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_gsfav"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_obw8w"]
+radius = 7.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hsedo"]
+size = Vector2(18, 12)
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = ExtResource("1_gsfav")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(-1, -9)
+texture = ExtResource("1_5e0s5")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CircleShape2D_obw8w")
+
+[node name="PipeDetector" type="Area2D" parent="."]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PipeDetector"]
+position = Vector2(0, 1)
+shape = SubResource("RectangleShape2D_hsedo")
+
+[connection signal="area_entered" from="PipeDetector" to="." method="_on_pipe_detector_area_entered"]

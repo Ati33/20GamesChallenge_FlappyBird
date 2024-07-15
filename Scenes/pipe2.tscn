@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://dg5f7gen7xqtb"]
+
+[ext_resource type="Texture2D" uid="uid://bjj43pvroxnhq" path="res://Assets/trappng.png" id="1_jqmef"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_usxpu"]
+size = Vector2(28, 345)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dwq87"]
+size = Vector2(7, 47)
+
+[node name="PipeNode" type="Node2D"]
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+collision_mask = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="StaticBody2D"]
+texture = ExtResource("1_jqmef")
+
+[node name="LowerCollision" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, 197)
+shape = SubResource("RectangleShape2D_usxpu")
+
+[node name="UpperCollision" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(0, -196)
+shape = SubResource("RectangleShape2D_usxpu")
+
+[node name="ScoreArea" type="Area2D" parent="."]
+
+[node name="ScoreCollision" type="CollisionShape2D" parent="ScoreArea"]
+position = Vector2(12.5, 0.5)
+shape = SubResource("RectangleShape2D_dwq87")
